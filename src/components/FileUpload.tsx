@@ -6,8 +6,10 @@ import { Inbox, Loader2 } from "lucide-react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast/headless";
+import { useRouter } from "next/navigation";
 
 const FileUpload = () => {
+  const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
   const { mutate, isLoading } = useMutation({
     mutationFn: async ({
@@ -45,12 +47,14 @@ const FileUpload = () => {
         }
         // console.log("data", data);
         mutate(data, {
-          onSuccess: (data) => {
-            console.log(data);
-            // toast.success(data.message);
+          onSuccess: ({ chat_id }) => {
+            // console.log(data);
+            toast.success("Chat created!");
+            router.push("/chat/${chat_id}");
           },
           onError: (err) => {
             toast.error("Error creating Chat");
+            console.error(err);
           },
         });
       } catch (error) {

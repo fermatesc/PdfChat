@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 // import fs from "fs";
 import { writeFile } from "fs/promises";
-import * as os from 'os';
+import * as os from "os";
 
 export async function downloadFromS3(file_key: string) {
   try {
@@ -20,7 +20,7 @@ export async function downloadFromS3(file_key: string) {
       Key: file_key,
     };
     const obj = await s3.getObject(params).promise();
-    const file_name = os.tmpdir()+`/pdf-${Date.now()}.pdf`;
+    const file_name = os.tmpdir() + `/pdf-${Date.now()}.pdf`;
     await writeFile(file_name, obj.Body as Buffer);
     return file_name;
   } catch (error) {

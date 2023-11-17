@@ -43,11 +43,11 @@ export async function loadS3IntoPinecone(file_key: string) {
   //4. Upload to pinecone
   const client = await getPineconeClient();
   const pineconeIndex = client.Index("pdfchat");
-  // const namespace = pineconeIndex.namespace(convertToAscii(file_key));
+  // const namespace = pineconeIndex.namespace(convertToAscii(file_key)); //namespace ddoes not work for starter tier of pinecone
 
   // console.log("inserting vector into pinecone");
   // await namespace.upsert(vectors);
-  
+
   console.log("inserting vector into pinecone");
   await  pineconeIndex.upsert(vectors);
 
